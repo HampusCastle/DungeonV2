@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class MonsterFactory {
 
-    public static AMonster spawnMonster() {
+    public  AMonster spawnMonster() {
         Random random = new Random();
         int randomIndex = random.nextInt(5);
 

@@ -1,7 +1,9 @@
 package com.hampusborg.demo.heroes;
 
 import com.hampusborg.demo.interfaces.ACharacter;
+import com.hampusborg.demo.shop.Weapon;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class AHero extends ACharacter {
@@ -9,8 +11,17 @@ public abstract class AHero extends ACharacter {
     private int strength;
     private int agility;
     private int intelligence;
-    private int level;
+    protected int level;
+    protected int monstersKilled;
+    protected ArrayList<Weapon> weapons;
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     public int getStrength() {
         return strength;
@@ -27,20 +38,25 @@ public abstract class AHero extends ACharacter {
     public void setStrength(int strength) {
         this.strength = strength;
     }
+
     public int getAgility() {
         return agility;
     }
-    public int setAgility (int agility) {
+
+    public int setAgility(int agility) {
         return this.agility = agility;
     }
+
     public int setDamage(int damage) {
         return this.damage = damage;
     }
+
     public int getGold() {
         return this.gold;
     }
+
     public int setGold(int gold) {
-        return gold;
+        return this.gold = gold;
     }
 
 
@@ -48,7 +64,7 @@ public abstract class AHero extends ACharacter {
         return health;
     }
 
-    public int setHealth(int i) {
+    public int setHealth(int health) {
         return this.health = health;
     }
 
@@ -60,6 +76,7 @@ public abstract class AHero extends ACharacter {
         this.health = health;
         this.intelligence = intelligence;
         this.r = new Random();
+        this.weapons = new ArrayList<>();
         this.experience = 0;
         this.gold = 0;
         this.level = 1;
@@ -72,12 +89,15 @@ public abstract class AHero extends ACharacter {
         agility += 2;
         strength += 2;
         intelligence += 2;
+        damage += 2;
         health = 100;
         System.out.println("You have reached a new level, DING!\n" +
                 level + " is your new level!\n" +
-                agility + "is you new agility level!\n" +
-                strength + "is your new strength level!" +
-                intelligence + "is you new intelligence level!\n Your Health have also been reset to: " + health);
+                agility + " is you new agility level!\n" +
+                strength + " is your new strength level!\n" +
+                damage + " is now your new damage level!\n" +
+                intelligence + " is you new intelligence level!\n" +
+                "Your health has also been reset and is now: " + health);
 
     }
 
@@ -86,33 +106,36 @@ public abstract class AHero extends ACharacter {
         return r.nextInt(100) < 60 + agility;
     }
 
-    private boolean didDodge() {
-        return r.nextInt(100) < agility;
+    private boolean isCriticalHit(boolean isRegularAttack) {
+        if (isRegularAttack &&  r.nextInt(100) < intelligence) {
+            return true;
+        }
+        return false;
     }
 
-    private boolean isCriticalHit() {
-        return r.nextInt(100) < intelligence;
+
+    public int getDamage(boolean isRegularAttack) {
+        return calculateDamage(isRegularAttack);
     }
 
-    @Override
-    public int getDamage() {
-        return calculateDamage();
-    }
-
-    private int calculateDamage() {
+    private int calculateDamage(boolean isRegularAttack) {
         int tempDamage = damage + (strength * 2 / 4 + 1);
-        if (isCriticalHit()) {
+        if (isCriticalHit(isRegularAttack)) {
+            System.out.println("Cracking hit son! Critical strike dealt: " + tempDamage * 2);
             return tempDamage * 2;
         }
+        System.out.println("Week hit, only: " + tempDamage);
+
         return tempDamage;
     }
 
     public void loot(int gold, int experience) {
         this.gold += gold;
         setExperience(experience);
+        monstersKilled++;
     }
 
-    private void setExperience(int experience) {
+    void setExperience(int experience) {
         if (this.experience + experience >= 100) {
             levelUp();
             this.experience = (this.experience + experience) - 100;
@@ -122,14 +145,14 @@ public abstract class AHero extends ACharacter {
     }
 
 
-
     public String getStatus() {
 
         return "Name: " + name +
                 "\nHealth: " + health +
-                "\nDamage: " + getDamage() +
+                "\nDamage: " + damage +
                 "\nStrength: " + strength +
                 "\nAgility: " + agility +
+                "\n Experience: " + experience +
                 "\nGold: " + gold +
                 "\nLevel: " + level;
 
@@ -147,6 +170,24 @@ public abstract class AHero extends ACharacter {
 
     public String dodge() {
         return "The attack was dodged and no hp was lost!";
+    }
+
+    public void addToInventory(Weapon selectedWeapon) {
+            if (this.weapons == null) {
+                this.weapons = new ArrayList<>();
+            }
+            this.weapons.add(selectedWeapon);
+    }
+
+    public String toSaveFileString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hero:").append(name).append(" level ").append(level).append("\nWeapons:");
+        for (Weapon weapon : weapons
+        ) {
+            sb.append(weapon.getName()).append("\n");
+        }
+        sb.append("Monsters killed: ").append(monstersKilled);
+        return sb.toString();
     }
 }
 

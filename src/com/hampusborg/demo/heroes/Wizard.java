@@ -6,7 +6,7 @@ public class Wizard extends AHero implements ICombat {
 
 
     public Wizard() {
-        super("Fizzlenoodle the Enchantingly Clumsy", 10, 10, 10, 1000, 10);
+        super("Fizzlenoodle the Enchantingly Clumsy", 15, 20, 37, 100, 45);
     }
 
     @Override

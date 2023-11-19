@@ -1,22 +1,24 @@
 package com.hampusborg.demo.monsters;
 
-public class Gothmog extends AMonster {
+import com.hampusborg.demo.interfaces.IColors;
+
+public class Gothmog extends AMonster implements IColors {
     public Gothmog() {
-        super("Gothmog", 10, 10, 10, 10);
+        super("Gothmog", 30, 50, 45, 30);
     }
 
     @Override
     public String attack() {
-        return "Bad breath, that spurts fire!";
+        return BLUE + "Bad breath, that spurts fire!" + RESET;
     }
 
 
     @Override
     public String getLore() {
-        return "Gothmog, the Lieutenant of Morgul, was the guy Sauron called when he needed someone to lead the evil army." +
-                " With a name that sounds like it belongs to a death metal band's lead singer, Gothmog had a knack for orchestrating absolute fucking chaos during the Battle of the Pelennor Fields." +
+        return "Gothmog, the Lieutenant of Morgul, was the guy Sauron called when he needed someone to lead the evil army.\n" +
+                " With a name that sounds like it belongs to a death metal band's lead singer, Gothmog had a knack for orchestrating absolute fucking chaos during the Battle of the Pelennor Fields.\n" +
                 " He probably got the job by convincing Sauron that spikes on helmets were still in fashion." +
-                " While not the most memorable character, he did his villainous duty, shouting orders and causing general mayhem until meeting his untimely end. Cheers to you, Gothmog, the dark lord of battle coordination.";
+                " While not the most memorable character, he did his villainous duty, shouting orders and causing general mayhem until meeting his untimely end.\n Cheers to you, Gothmog, the dark lord of battle coordination.";
     }
 }
 

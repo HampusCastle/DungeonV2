@@ -34,7 +34,7 @@ public abstract class ACharacter implements ICombat {
 
         return "Name: " + name +
                 "\nHealth: " + health +
-                "\nDamage: " + getDamage();
+                "\nDamage: " + damage;
     }
 
 }

@@ -5,7 +5,7 @@ import com.hampusborg.demo.interfaces.IColors;
 public class Ranger extends AHero implements IColors {
 
     public Ranger () {
-        super("Arrow Fumblefoot the Clumsy Ranger", 10, 10, 10, 1000, 10);
+        super("Arrow Fumblefoot the Clumsy Ranger", 20, 35, 40, 100, 25);
     }
 
     @Override

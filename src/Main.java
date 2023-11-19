@@ -5,22 +5,23 @@ import com.hampusborg.demo.menus.HeroMenu;
 import com.hampusborg.demo.menus.LevelsMenu;
 import com.hampusborg.demo.monsters.AMonster;
 import com.hampusborg.demo.monsters.MonsterFactory;
+import com.hampusborg.demo.shop.Weapon;
+import org.w3c.dom.ls.LSOutput;
+
+import java.util.ArrayList;
 
 
 public class Main {
     public static void main(String[] args) {
 
-
+        ArrayList<Weapon> weapons = new ArrayList<>();
+        MonsterFactory monsterFactory = new MonsterFactory();
         Game game = new Game();
         game.choice();
         LevelsMenu levelsMenu = new LevelsMenu();
         AHero hero = new HeroMenu().choosePlayer();
-        AMonster monster = MonsterFactory.spawnMonster();
-    levelsMenu.startCombat(hero);
-
-
-
-
+        monsterFactory.spawnMonster();
+        levelsMenu.startCombat(hero);
 
 
     }

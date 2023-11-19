@@ -5,7 +5,7 @@ import com.hampusborg.demo.interfaces.ICombat;
 public class Dwarf extends AHero implements ICombat {
 
     public Dwarf() {
-        super("Mumble Stone-beard", 10, 10, 10, 1000, 10);
+        super("Mumble Stone-beard", 35, 20, 40, 100, 25);
     }
 
     @Override
