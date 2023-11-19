@@ -3,10 +3,9 @@ import com.hampusborg.demo.heroes.AHero;
 import com.hampusborg.demo.menus.Game;
 import com.hampusborg.demo.menus.HeroMenu;
 import com.hampusborg.demo.menus.LevelsMenu;
-import com.hampusborg.demo.monsters.AMonster;
 import com.hampusborg.demo.monsters.MonsterFactory;
 import com.hampusborg.demo.shop.Weapon;
-import org.w3c.dom.ls.LSOutput;
+
 
 import java.util.ArrayList;
 
@@ -22,7 +21,5 @@ public class Main {
         AHero hero = new HeroMenu().choosePlayer();
         monsterFactory.spawnMonster();
         levelsMenu.startCombat(hero);
-
-
     }
 }

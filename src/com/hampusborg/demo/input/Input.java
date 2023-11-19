@@ -1,5 +1,4 @@
 package com.hampusborg.demo.input;
-
 import java.util.Scanner;
 
 public class Input {

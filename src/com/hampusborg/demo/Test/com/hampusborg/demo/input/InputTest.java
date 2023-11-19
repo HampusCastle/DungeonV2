@@ -1,9 +1,5 @@
-
-/*
 package com.hampusborg.demo.input;
-
 import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
@@ -29,10 +25,4 @@ class InputTest {
             Input.getIntInput("Enter a number: ");
         });
     }
-
-    @Test
-    void getIntInput() {
-    }
 }
-
-*/

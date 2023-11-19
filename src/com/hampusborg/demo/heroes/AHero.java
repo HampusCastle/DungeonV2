@@ -1,8 +1,6 @@
 package com.hampusborg.demo.heroes;
-
 import com.hampusborg.demo.interfaces.ACharacter;
 import com.hampusborg.demo.shop.Weapon;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -158,19 +156,6 @@ public abstract class AHero extends ACharacter {
 
     }
 
-    public void flee() {
-        System.out.println(name + " tries to flee");
-        if (didFlee()) {
-            System.out.println("He managed to get away, almost weasel like...");
-        } else {
-            System.out.println("HA! failed escape, now fight!");
-        }
-
-    }
-
-    public String dodge() {
-        return "The attack was dodged and no hp was lost!";
-    }
 
     public void addToInventory(Weapon selectedWeapon) {
             if (this.weapons == null) {

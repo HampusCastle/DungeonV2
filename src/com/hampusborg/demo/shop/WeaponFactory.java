@@ -1,5 +1,4 @@
 package com.hampusborg.demo.shop;
-
 import java.util.ArrayList;
 
 public class WeaponFactory {

@@ -1,16 +1,11 @@
 
-
 package com.hampusborg.demo.shop;
-
 import com.hampusborg.demo.heroes.AHero;
 import com.hampusborg.demo.input.Input;
 import com.hampusborg.demo.interfaces.IColors;
 import com.hampusborg.demo.menus.LevelsMenu;
 import com.hampusborg.demo.monsters.AMonster;
-
-
 import java.util.ArrayList;
-
 
 public class Shop implements IColors {
 

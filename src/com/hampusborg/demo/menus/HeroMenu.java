@@ -3,14 +3,7 @@ import com.hampusborg.demo.heroes.*;
 import com.hampusborg.demo.input.Input;
 import com.hampusborg.demo.interfaces.IColors;
 
-import static com.hampusborg.demo.interfaces.IColors.RED;
-
 public class HeroMenu implements IColors {
-    public HeroMenu() {
-    }
-
-
-
     public AHero choosePlayer() {
 
         System.out.println(" Choose class: \n 1. - Ranger \n 2. - Warrior \n 3. - Wizard \n 4. - Dwarf");

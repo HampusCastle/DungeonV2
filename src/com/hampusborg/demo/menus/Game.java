@@ -37,11 +37,7 @@ public class Game implements IColors {
     }
 
     private void startGame() {
-
         LevelsMenu levelsMenu = new LevelsMenu();
-
-
-
     }
 
 

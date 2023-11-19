@@ -1,5 +1,4 @@
 package com.hampusborg.demo.shop;
-
 public class Weapon {
     public int getCost() {
         return cost;
