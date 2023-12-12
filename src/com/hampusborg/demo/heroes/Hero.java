@@ -11,6 +11,41 @@ public abstract class AHero extends ACharacter {
     private int intelligence;
     protected int level;
     protected int monstersKilled;
+    protected Long heroID;
+    private String heroClass;
+
+    public void setHeroClass(String heroClass) {
+        this.heroClass = heroClass;
+    }
+
+    public String getHeroClass() {
+        return heroClass;
+    }
+
+    public void setMonstersKilled(int monstersKilled) {
+        this.monstersKilled = monstersKilled;
+    }
+
+    public  void setHeroID(Long heroID) {
+        this.heroID = heroID;
+    }
+
+    public Long setWeapons(long weapons) {
+        this.weapons = weapons;
+    }
+
+    public Long getHeroID() {
+        return heroID;
+    }
+
+    public int getMonstersKilled() {
+        return monstersKilled;
+    }
+
+    public long getWeapons() {
+        return weapons;
+    }
+
     protected ArrayList<Weapon> weapons;
 
     public int getLevel() {
@@ -66,8 +101,9 @@ public abstract class AHero extends ACharacter {
         return this.health = health;
     }
 
-    public AHero(String name, int strength, int agility, int damage, int health, int intelligence) {
+    public AHero(String name, String heroClass, int strength, int agility, int damage, int health, int intelligence) {
         super.name = name;
+        this.heroClass = heroClass;
         this.strength = strength;
         this.agility = agility;
         this.damage = damage;
@@ -133,7 +169,7 @@ public abstract class AHero extends ACharacter {
         monstersKilled++;
     }
 
-    void setExperience(int experience) {
+    public void setExperience(int experience) {
         if (this.experience + experience >= 100) {
             levelUp();
             this.experience = (this.experience + experience) - 100;
