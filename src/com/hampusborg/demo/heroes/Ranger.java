@@ -2,10 +2,10 @@ package com.hampusborg.demo.heroes;
 
 import com.hampusborg.demo.interfaces.IColors;
 
-public class Ranger extends AHero implements IColors {
+public class Ranger extends Hero implements IColors {
 
     public Ranger () {
-        super("Arrow Fumblefoot the Clumsy Ranger", 20, 35, 40, 100, 25);
+        super("Arrow Fumblefoot the Clumsy Ranger", "Ranger", 20, 35, 40, 100, 25);
     }
 
     @Override

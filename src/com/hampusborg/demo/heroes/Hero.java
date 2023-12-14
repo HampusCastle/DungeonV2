@@ -2,9 +2,10 @@ package com.hampusborg.demo.heroes;
 import com.hampusborg.demo.interfaces.ACharacter;
 import com.hampusborg.demo.shop.Weapon;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public abstract class AHero extends ACharacter {
+public class Hero extends ACharacter {
     Random r;
     private int strength;
     private int agility;
@@ -13,6 +14,25 @@ public abstract class AHero extends ACharacter {
     protected int monstersKilled;
     protected Long heroID;
     private String heroClass;
+    private String name;
+    protected List<Weapon> weapons;
+    protected Weapon weapon;
+    private Hero hero;
+
+    public Hero getHero() {
+        return hero;
+    }
+    public void setHero(Hero hero) {
+        this.hero = hero;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 
     public void setHeroClass(String heroClass) {
         this.heroClass = heroClass;
@@ -30,23 +50,23 @@ public abstract class AHero extends ACharacter {
         this.heroID = heroID;
     }
 
-    public Long setWeapons(long weapons) {
-        this.weapons = weapons;
+    public Weapon getWeapon() {
+        return weapon;
     }
+
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+
+
 
     public Long getHeroID() {
         return heroID;
     }
-
     public int getMonstersKilled() {
         return monstersKilled;
     }
-
-    public long getWeapons() {
-        return weapons;
-    }
-
-    protected ArrayList<Weapon> weapons;
 
     public int getLevel() {
         return level;
@@ -101,7 +121,7 @@ public abstract class AHero extends ACharacter {
         return this.health = health;
     }
 
-    public AHero(String name, String heroClass, int strength, int agility, int damage, int health, int intelligence) {
+    public Hero(String name, String heroClass, int strength, int agility, int damage, int health, int intelligence) {
         super.name = name;
         this.heroClass = heroClass;
         this.strength = strength;
@@ -116,6 +136,7 @@ public abstract class AHero extends ACharacter {
         this.level = 1;
 
     }
+    public Hero () {}
 
     public void levelUp() {
 
@@ -209,6 +230,11 @@ public abstract class AHero extends ACharacter {
         }
         sb.append("Monsters killed: ").append(monstersKilled);
         return sb.toString();
+    }
+
+    @Override
+    public String attack() {
+        return null;
     }
 }
 

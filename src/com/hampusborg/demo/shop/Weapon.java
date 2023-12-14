@@ -1,23 +1,27 @@
 package com.hampusborg.demo.shop;
 public class Weapon {
+    private int weaponId;
+    private String name;
+    private int damage;
+    private int cost;
+
+
+
     public int getCost() {
         return cost;
     }
-
-    public Weapon(int weaponId, String name, int damage, int cost) {
-
-        this.weaponId = weaponId;
-        this.name = name;
-        this.damage = damage;
-        this.cost = cost;
-
+    public int setCost(int cost) {
+        return cost;
     }
 
-    private final int weaponId;
-    private final String name;
-    private final int damage;
-    private final int cost;
 
+public Weapon() {}
+public Weapon (int weaponId, String name, int damage, int cost) {
+    this.weaponId = weaponId;
+    this.name = name;
+    this.damage = damage;
+    this.cost = cost;
+}
     public int getDamage() {
         return damage;
     }
@@ -35,6 +39,10 @@ public class Weapon {
     public int getWeaponId() {
         return weaponId;
     }
+    public String setName(String name) {
+        return this.name;
+    }
+
 }
 
 

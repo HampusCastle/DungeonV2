@@ -2,10 +2,11 @@ package com.hampusborg.demo.heroes;
 
 import com.hampusborg.demo.interfaces.ICombat;
 
-public class Dwarf extends AHero implements ICombat {
+public class Dwarf extends Hero implements ICombat {
 
+    Hero hero;
     public Dwarf() {
-        super("Mumble Stone-beard", 35, 20, 40, 100, 25);
+        super("Mumble Stone-beard", "Dwarf",35, 20, 40, 100, 25);
     }
 
     @Override

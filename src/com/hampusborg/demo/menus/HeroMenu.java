@@ -4,7 +4,7 @@ import com.hampusborg.demo.input.Input;
 import com.hampusborg.demo.interfaces.IColors;
 
 public class HeroMenu implements IColors {
-    public AHero choosePlayer() {
+    public Hero choosePlayer() {
 
         System.out.println(" Choose class: \n 1. - Ranger \n 2. - Warrior \n 3. - Wizard \n 4. - Dwarf");
 

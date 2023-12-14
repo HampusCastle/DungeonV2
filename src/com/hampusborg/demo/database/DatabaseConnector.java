@@ -1,17 +1,19 @@
-package com.hampusborg.demo.database;
 
-public class DatabaseConnector {
+package com.hampusborg.demo.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-    private static final String URL = "jdbc:mariadb://localhost:3306/your_database";
-    private static final String USER = "your_username";
-    private static final String PASSWORD = "your_password";
 
-    private Connection connection;
+public class DatabaseConnector {
 
-    public DatabaseConnection() {
+    private static final String URL = "jdbc:mariadb://localhost:3306/Dungeon_Run";
+    private static final String USER = "admin";
+    private static final String PASSWORD = "Hampira2023!";
+
+    private static Connection connection;
+
+    public void openConnection() {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             this.connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -22,7 +24,7 @@ import java.sql.SQLException;
         }
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return connection;
     }
 
@@ -38,4 +40,3 @@ import java.sql.SQLException;
     }
 }
 
-}

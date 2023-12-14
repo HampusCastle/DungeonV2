@@ -1,6 +1,6 @@
 
 package com.hampusborg.demo.shop;
-import com.hampusborg.demo.heroes.AHero;
+import com.hampusborg.demo.heroes.Hero;
 import com.hampusborg.demo.input.Input;
 import com.hampusborg.demo.interfaces.IColors;
 import com.hampusborg.demo.menus.LevelsMenu;
@@ -16,9 +16,9 @@ public class Shop implements IColors {
          this.weapons = WeaponFactory.generateWeapons();
     }
 
-    public void buyItems(AHero hero, AMonster monster) {
+    public void buyItems(Hero hero, AMonster monster) {
         boolean wrongInput = true;
-        this.levelsmenu = new LevelsMenu();
+        this.levelsmenu = new LevelsMenu(hero);
 
 
         do {
@@ -31,7 +31,7 @@ public class Shop implements IColors {
                 case 4 -> statsUpgrade(hero, "Strength", 10, 200);
                 case 5 -> statsUpgrade(hero, "intelligence", 10, 200);
                 case 6 -> buyWeapon(hero, monster);
-                case 0 -> levelsmenu.showAfterFightMenu(hero, monster);
+                case 0 -> levelsmenu.showAfterFightMenu(monster);
                 default -> {
                     System.out.println("Invalid choice, buy or leave..");
                     wrongInput = true;
@@ -39,11 +39,11 @@ public class Shop implements IColors {
 
             }
         } while (wrongInput);
-        levelsmenu.showAfterFightMenu(hero, monster);
+        levelsmenu.showAfterFightMenu(monster);
 
     }
 
-    private void buyWeapon(AHero hero, AMonster monster) {
+    private void buyWeapon(Hero hero, AMonster monster) {
 
         if (weapons == null) {
             System.out.println("Error, list is empty");
@@ -93,7 +93,7 @@ public class Shop implements IColors {
         System.out.println(RED + "0. - Exit" + RESET);
     }
 
-    private void statsUpgrade(AHero hero, String statName, int statIncrease, int cost) {
+    private void statsUpgrade(Hero hero, String statName, int statIncrease, int cost) {
         if (hero.getGold() >= cost) {
             statIncrease(hero, statName, statIncrease);
             hero.setGold(hero.getGold() - cost);
@@ -103,7 +103,7 @@ public class Shop implements IColors {
         }
     }
 
-    private void statIncrease(AHero hero, String statName, int statIncrease) {
+    private void statIncrease(Hero hero, String statName, int statIncrease) {
         switch (statName) {
             case "Health" -> hero.setHealth(hero.getHealth() + statIncrease);
             case "Damage" -> hero.setDamage(hero.getDamage() + statIncrease);

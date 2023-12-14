@@ -1,2 +1,3 @@
-Hero:Arrow Fumblefoot the Clumsy Ranger level 1
-Weapons:Monsters killed: 1
+Hero:null level 3
+Weapons:Butter knife
+Monsters killed: 9

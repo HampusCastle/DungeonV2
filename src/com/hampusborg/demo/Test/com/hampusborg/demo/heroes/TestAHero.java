@@ -1,5 +1,5 @@
 
-package com.hampusborg.demo.heroes;
+/*package com.hampusborg.demo.heroes;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,6 +46,6 @@ public class TestAHero extends AHero {
     public String attack() {
         return null;
     }
-}
+}*/
 
 

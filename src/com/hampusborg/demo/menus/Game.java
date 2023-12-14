@@ -1,53 +1,67 @@
 package com.hampusborg.demo.menus;
 
-import com.hampusborg.demo.heroes.AHero;
+import com.hampusborg.demo.database.DatabaseConnector;
+import com.hampusborg.demo.heroes.Hero;
 import com.hampusborg.demo.input.Input;
 import com.hampusborg.demo.interfaces.IColors;
 
-import static com.hampusborg.demo.input.SaveGameResult.saveToFileAndOpen;
+
+// import static com.hampusborg.demo.input.SaveGameResult.saveToFileAndOpen;
 
 public class Game implements IColors {
 
     public boolean isPlaying = true;
+    LevelsMenu levelsMenu;
+    Hero hero;
 
-
+DatabaseConnector db;
 
     public void choice() {
+
+        this.levelsMenu = new LevelsMenu(hero);
+
+        this.db = new DatabaseConnector();
+
         System.out.println(RED + "Hello and welcome to another spinoff of quality books/movies that never turns out great!\n Introducing.. Super cool options: " + RESET);
         do {
 
 
             System.out.println(BLUE + "1. Start new game" + RESET);
-            System.out.println(YELLOW + "2. Learn more about why you're here and is completely accurate and cool (sooo cool..)" + RESET);
-            System.out.println(GREEN + "3. Exit the app and get on to better things and try to enjoy life.." + RESET);
+            System.out.println(RED + "2. Load an saved player" + RESET);
+            System.out.println(WHITE + "3. Show a list of saved players.");
+            System.out.println(YELLOW + "4. Learn more about why you're here and is completely accurate and cool (sooo cool..)" + RESET);
+            System.out.println(GREEN + "5. Exit the app and get on to better things and try to enjoy life.." + RESET);
             switch (Input.getIntInput("")) {
                 case 1 -> {
-                    startGame();
                     isPlaying = false;
                 }
                 case 2 -> {
+                    db.openConnection();
+                    levelsMenu.loadPlayer();
+                isPlaying = false;}
+                case 3 -> {levelsMenu.choiceOfSavedPlayers();
+                isPlaying = false;}
+
+                case 4 -> {
                     System.out.println(gameLore());
                     isPlaying = true;
                 }
-                case 3 -> exitGame(null);
+                case 5 -> exitGame(null);
                 default -> System.out.println("At least try to make sense of things, try again..");
             }
 
         } while (isPlaying);
     }
 
-    private void startGame() {
-        LevelsMenu levelsMenu = new LevelsMenu();
-    }
 
 
-    protected void exitGame(AHero hero) {
+    protected void exitGame(Hero hero) {
         isPlaying = false;
         System.out.println("Bye bye now, on to better things.");
-        if (hero != null) {
-            String filePath = "game_results.txt";
-            saveToFileAndOpen(hero, filePath);
-        }
+        // if (hero != null) {
+        //String filePath = "game_results.txt";
+        //saveToFileAndOpen(hero, filePath);
+        // }
 
         System.exit(0);
     }
@@ -63,4 +77,5 @@ public class Game implements IColors {
                 "\n" +
                 "But hey, who am I to question the infinite wisdom of the entertainment industry? Clearly, the geniuses behind these spin-offs know exactly what they're doing. \n I'm just a lowly mortal, incapable of appreciating the unparalleled brilliance of another journey through Middle-earth.\n So, go ahead, dive into that fresh, innovative take on Tolkien's universe. I'm sure it will be an experience like no other.\n";
     }
+
 }
