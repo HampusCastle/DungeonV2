@@ -11,6 +11,7 @@ public class MonsterFactory {
         switch (randomIndex) {
             case 0:
                 return new Denethor();
+
             case 1:
                 return new Gothmog();
             case 2:

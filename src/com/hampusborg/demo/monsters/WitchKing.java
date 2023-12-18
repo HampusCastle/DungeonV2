@@ -9,9 +9,17 @@ public class WitchKing extends AMonster implements IColors {
         super("Witch King", 35, 60, 43, 35);
     }
 
+
+
+    private int healthLost;
     @Override
     public String attack() {
         return "Flying around throwing orcs at you";
+    }
+
+    @Override
+    public int getHealthLost() {
+        return healthLost;
     }
 
     @Override
@@ -22,5 +30,16 @@ public class WitchKing extends AMonster implements IColors {
                 "If he had a LinkedIn profile, his skills section would include screaming, riding winged creatures, and generally being an incorporeal party pooper.\n" +
                 " Plus, he had a nifty magic sword that could ruin anyone's day.\n But let's not forget his claim to fame – getting a fancy prophecy about not being killed by a man, only to be foiled by Eowyn, a woman.\n" +
                 " It's like he never read the fine print in his evil contract. Better luck next time, Witch-king." + RESET;
+    }
+    @Override
+    public void takeDamage(int damage) {
+        super.takeDamage(damage);
+        healthLost += damage;
+        calculateHealthLost();
+    }
+
+    @Override
+    public int getLostHealth() {
+        return 0;
     }
 }

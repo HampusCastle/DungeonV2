@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Hero extends ACharacter {
-    Random r;
+    Random r = new Random();
     private int strength;
     private int agility;
     private int intelligence;
@@ -18,6 +18,11 @@ public class Hero extends ACharacter {
     protected List<Weapon> weapons;
     protected Weapon weapon;
     private Hero hero;
+    private int healthLost;
+
+    public int getLostHealth() {
+        return healthLost;
+    }
 
     public Hero getHero() {
         return hero;
@@ -121,19 +126,19 @@ public class Hero extends ACharacter {
         return this.health = health;
     }
 
-    public Hero(String name, String heroClass, int strength, int agility, int damage, int health, int intelligence) {
-        super.name = name;
+    public Hero(String playerName, String heroClass, int strength, int agility, int damage, int health, int intelligence) {
+        this.name = playerName;
         this.heroClass = heroClass;
         this.strength = strength;
         this.agility = agility;
         this.damage = damage;
         this.health = health;
         this.intelligence = intelligence;
-        this.r = new Random();
         this.weapons = new ArrayList<>();
         this.experience = 0;
         this.gold = 0;
         this.level = 1;
+        this.initialHealth = health;
 
     }
     public Hero () {}
@@ -185,9 +190,9 @@ public class Hero extends ACharacter {
     }
 
     public void loot(int gold, int experience) {
+        monstersKilled++;
         this.gold += gold;
         setExperience(experience);
-        monstersKilled++;
     }
 
     public void setExperience(int experience) {
@@ -234,7 +239,8 @@ public class Hero extends ACharacter {
 
     @Override
     public String attack() {
-        return null;
+        int damage = calculateDamage(true);
+        return "Player hits for " + damage + " damage!";
     }
 }
 

@@ -12,4 +12,13 @@ public class WeaponFactory {
         weapons.add(w3);
         return weapons;
     }
+
+    public static Weapon getWeaponById(int weaponID) {
+        for (Weapon weapon : generateWeapons()) {
+            if (weapon.getWeaponId() == weaponID) {
+                return weapon;
+            }
+        }
+        return null;
+    }
 }

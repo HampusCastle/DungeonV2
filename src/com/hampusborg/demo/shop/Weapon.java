@@ -11,6 +11,7 @@ public class Weapon {
         return cost;
     }
     public int setCost(int cost) {
+        this.cost = cost;
         return cost;
     }
 

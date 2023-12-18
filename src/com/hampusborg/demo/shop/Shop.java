@@ -1,24 +1,34 @@
 
 package com.hampusborg.demo.shop;
+import com.hampusborg.demo.database.DatabaseConnector;
+import com.hampusborg.demo.database.repository.WeaponDao;
 import com.hampusborg.demo.heroes.Hero;
 import com.hampusborg.demo.input.Input;
 import com.hampusborg.demo.interfaces.IColors;
 import com.hampusborg.demo.menus.LevelsMenu;
 import com.hampusborg.demo.monsters.AMonster;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static com.hampusborg.demo.database.repository.WeaponDao.INSERT_HERO_WEAPON_SQL;
 
 public class Shop implements IColors {
 
+    DatabaseConnector db;
     private LevelsMenu levelsmenu;
     private ArrayList<Weapon> weapons;
+    private WeaponDao weaponDao;
 
     public Shop () {
          this.weapons = WeaponFactory.generateWeapons();
     }
 
-    public void buyItems(Hero hero, AMonster monster) {
+    public void buyItems(Hero hero, AMonster monster) throws SQLException {
         boolean wrongInput = true;
+        this.db = new DatabaseConnector();
         this.levelsmenu = new LevelsMenu(hero);
+        this.weaponDao = new WeaponDao();
 
 
         do {
@@ -43,7 +53,7 @@ public class Shop implements IColors {
 
     }
 
-    private void buyWeapon(Hero hero, AMonster monster) {
+    private void buyWeapon(Hero hero, AMonster monster) throws SQLException {
 
         if (weapons == null) {
             System.out.println("Error, list is empty");
@@ -65,8 +75,12 @@ public class Shop implements IColors {
         if (selectedWeapon != null && hero.getGold() >= selectedWeapon.getCost()) {
             hero.setGold(hero.getGold() - selectedWeapon.getCost());
             hero.addToInventory(selectedWeapon);
+            weaponDao.saveHeroWeapon(hero.getHeroID(), selectedWeapon.getWeaponId(), 1);
             hero.setDamage(hero.getDamage() + selectedWeapon.getDamage());
             System.out.println("You bought: " + selectedWeapon.getName());
+            levelsmenu.savePlayer();
+
+
         } else if (selectedWeapon == null) {
             System.out.println("Invalid weapon ID. Nothing was bought, obviously??");
         } else {

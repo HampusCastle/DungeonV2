@@ -1,8 +1,8 @@
 package com.hampusborg.demo.heroes;
 
 public class Warrior extends Hero {
-    public Warrior() {
-        super("Sir Blunderblade the Bumbling","Warrior", 40, 25, 45, 100, 20);
+    public Warrior(String playerName) {
+        super(playerName, "Warrior", 40, 25, 45, 100, 20);
     }
 
     @Override

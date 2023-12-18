@@ -7,9 +7,20 @@ public class Nazgúl extends AMonster implements IColors {
         super("Nazgúl", 25, 55, 17, 13);
     }
 
+    private int healthLost;
+    @Override
+    public int getLostHealth() {
+        return healthLost;
+    }
+
     @Override
     public String attack() {
         return YELLOW + "Screaming very high and inconvenient" + RESET;
+    }
+
+    @Override
+    public int getHealthLost() {
+        return 0;
     }
 
     @Override
@@ -19,6 +30,12 @@ public class Nazgúl extends AMonster implements IColors {
                 "Now, they ride around on creepy flying creatures, desperately trying to locate the One Ring, like a bunch of spectral delivery drivers with really bad customer service.\n " +
                 "Their hobbies include sniffing out hobbits, terrorizing the Shire, and asking Frodo if he's seen any shiny jewelry lately.\n " +
                 "Talk about afterlife gone wrong." + RESET;
+    }
+    @Override
+    public void takeDamage(int damage) {
+        super.takeDamage(damage);
+        healthLost += damage;
+        calculateHealthLost();
     }
 }
 

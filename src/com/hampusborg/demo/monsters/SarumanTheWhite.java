@@ -6,10 +6,20 @@ public class SarumanTheWhite extends AMonster implements IColors {
     public SarumanTheWhite() {
         super("Saruman", 47, 60, 40, 47);
     }
+private int healthLost;
+    @Override
+    public int getLostHealth() {
+        return healthLost;
+    }
 
     @Override
     public String attack() {
         return "Making something.. SUDDENLY throws it at your face!";
+    }
+
+    @Override
+    public int getHealthLost() {
+        return 0;
     }
 
     @Override
@@ -21,6 +31,12 @@ public class SarumanTheWhite extends AMonster implements IColors {
                 "He also developed a bizarre fascination with industrializing Isengard, turning it into Middle-earth's first heavily polluted factory.\n" +
                 " His downfall involved a serious lack of job satisfaction\n, a shaky alliance with orcs, and a wizard battle that probably would've been more entertaining with a popcorn stand.\n" +
                 " All in all, Saruman's career transition from \"Wise\" to \"Worst Decision Maker\" was a shining example of how not to wizard." + RESET;
+    }
+    @Override
+    public void takeDamage(int damage) {
+        super.takeDamage(damage);
+        healthLost += damage;
+        calculateHealthLost();
     }
 }
 

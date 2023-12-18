@@ -9,9 +9,20 @@ public class Shelob extends AMonster implements ICombat, IColors {
         super("Shelob", 25, 65, 55, 35);
     }
 
+    private int healthLost;
+    @Override
+    public int getLostHealth() {
+        return healthLost;
+    }
+
     @Override
     public String attack() {
         return "Hides in a dark place... shoots string everywhere and making a mess..";
+    }
+
+    @Override
+    public int getHealthLost() {
+        return 0;
     }
 
     @Override
@@ -21,5 +32,11 @@ public class Shelob extends AMonster implements ICombat, IColors {
                 " Her interior decorating skills were on point, with webs strategically placed to give that spooky, abandoned vibe.\n " +
                 "But what really set her apart was her affinity for bling \n – she had a thing for the One Ring, using it as her very own oversized, all-you-can-eat buffet bait.\n " +
                 "Who needs flies when you can have a hobbit with a side of precious jewelry, right? Talk about a spider with expensive taste." + RESET;
+    }
+    @Override
+    public void takeDamage(int damage) {
+        super.takeDamage(damage);
+        healthLost += damage;
+        calculateHealthLost();
     }
 }

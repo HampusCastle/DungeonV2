@@ -6,10 +6,21 @@ public class Denethor extends AMonster implements IColors {
     public Denethor() {
         super("Denethor", 20, 40, 35, 15);
     }
+    private int healthLost;
+
+    @Override
+    public int getLostHealth() {
+        return healthLost;
+    }
 
     @Override
     public String attack() {
         return RED + "Running around on fire and tries to catch you" + RESET;
+    }
+
+    @Override
+    public int getHealthLost() {
+        return health;
     }
 
     @Override
@@ -21,6 +32,12 @@ public class Denethor extends AMonster implements IColors {
                 "His parenting style wasn't winning any awards, but hey, at least he made an impression." + RESET;
 
 
+    }
+    @Override
+    public void takeDamage(int damage) {
+        super.takeDamage(damage);
+        healthLost += damage;
+        calculateHealthLost();
     }
 
 }

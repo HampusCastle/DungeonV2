@@ -5,8 +5,8 @@ import com.hampusborg.demo.interfaces.ICombat;
 public class Dwarf extends Hero implements ICombat {
 
     Hero hero;
-    public Dwarf() {
-        super("Mumble Stone-beard", "Dwarf",35, 20, 40, 100, 25);
+    public Dwarf(String playerName) {
+        super(playerName,"Dwarf",35, 20, 40, 100, 25);
     }
 
     @Override
