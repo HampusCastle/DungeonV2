@@ -30,8 +30,8 @@ public class LevelsMenu implements IColors {
     private final DatabaseConnector db;
     private final FightDao fightDao;
     private final MonsterDao monsterDao;
-   private  Fight currentFight;
-   private HistoryDao historyDao;
+    private Fight currentFight;
+    private HistoryDao historyDao;
 
 
     public LevelsMenu(Hero hero) {
@@ -47,16 +47,19 @@ public class LevelsMenu implements IColors {
         this.historyDao = new HistoryDao(this.db);
 
 
-
     }
 
     public void startCombat() throws SQLException {
-        System.out.println("Do you want to look at historic fights from your player?\n 1. - Yes! \n 2. - No? lol.. ");
-        switch (Input.getIntInput(""))  {
+
+        System.out.println(GREEN + "Do you want to look at historic fights from your player?\n 1. - Yes! \n 2. - No? lol.. " + RESET);
+        int choice = Input.getIntInput("");
+        switch (choice) {
             case 1 -> historyDao.fightHistory(hero);
-                case 2 -> System.out.println("Well, suit yourself. Be on your way now.");
-                    default -> System.out.println("Not listening to instructions is also a choice i guess.");
+
+            case 2 -> System.out.println("Well, suit yourself. Be on your way now.");
+            default -> System.out.println(RED + "Not listening to instructions is also a choice i guess." + RESET);
         }
+
         try {
             while (true) {
                 AMonster monster = saveSpawnedMonster();
@@ -64,13 +67,12 @@ public class LevelsMenu implements IColors {
                 if (monster != null) {
 
                     currentFight = new Fight(hero, monster);
-
-                    System.out.println(YELLOW + "A odd looking creature " + monster.getName() + " seems to be walking towards you.." + RESET);
-                    displayMonsterInfo(monster);
-
                     currentFight.setHeroID(hero.getHeroID());
                     currentFight.setMonsterID(monster.getMonsterID());
                     currentFight.setMonsterInitialHealth(monster.getInitialHealth());
+
+                    System.out.println( YELLOW + "A odd looking creature " + monster.getName() + " seems to be walking towards you.." + RESET);
+                    displayMonsterInfo(monster);
 
 
                     while (hero.isAlive() && monster.isAlive()) {
@@ -81,20 +83,22 @@ public class LevelsMenu implements IColors {
 
                     }
                     displayCombatResult(monster);
-
                     currentFight.setMonsterHealthLost(monster.getHealthLost());
+
                     saveFightHistory(currentFight, hero.getHeroID(), monster);
                     savePlayer();
+
                     showAfterFightMenu(monster);
+
                 }
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
 
-        private void saveFightHistory(Fight fight, long heroID, AMonster monster) {
+    private void saveFightHistory(Fight fight, long heroID, AMonster monster) {
         if (fight != null && monster != null && hero != null) {
             fight.setHeroID(heroID);
             fight.setMonsterID(monster.getMonsterID());
@@ -105,9 +109,8 @@ public class LevelsMenu implements IColors {
 
             if (hero.isAlive()) {
                 fight.setWinner("Hero");
-            } else {
-                fight.setWinner("Monster");
             }
+
             int damageDealt = fight.getDamageDealt();
             fight.setMonsterHealthLost(damageDealt);
 
@@ -115,7 +118,6 @@ public class LevelsMenu implements IColors {
 
 
             if (saved) {
-                System.out.println("SAVED");
                 hero.setInitialHealth(hero.getHealth());
                 monster.setInitialHealth(monster.getHealth());
             } else {
@@ -128,7 +130,7 @@ public class LevelsMenu implements IColors {
     }
 
     private void playerTurn(AMonster monster) throws SQLException {
-        System.out.println(RED + "1. - Attack\n 2. - Super awesome and cool monsterinfo \n 3. - Show abilities(and of course sneak peak on your opponent).\n 4. - Try to escape..\n" + "5. -Save your hero" + RESET);
+        System.out.println( GREEN + "1. - Attack\n 2. - Super awesome and cool monsterinfo \n 3. - Show abilities(and of course sneak peak on your opponent).\n 4. - Try to escape..\n" + "5. -Save your hero" + RESET);
 
         int choice = Input.getIntInput("");
 
@@ -144,7 +146,7 @@ public class LevelsMenu implements IColors {
 
             }
             case 4 -> {
-                System.out.println(CYAN + "Now he's trying to leave, oh my god." + RESET);
+                System.out.println(YELLOW + "Now he's trying to leave, oh my god." + RESET);
                 tryToFlee(monster);
                 startCombat();
             }
@@ -153,7 +155,7 @@ public class LevelsMenu implements IColors {
                 playerTurn(monster);
             }
             default -> {
-                System.out.println(PURPLE + "Please at least try to pay attention.. Give it another go champ, you probably understand basic instructions.." + RESET);
+                System.out.println(RED + "Please at least try to pay attention.. Give it another go champ, you probably understand basic instructions.." + RESET);
                 playerTurn(monster);
             }
 
@@ -166,11 +168,10 @@ public class LevelsMenu implements IColors {
             int damage = hero.getDamage();
             hero.attack();
             monster.takeDamage(damage);
-            System.out.println(BLUE + "A half hearted attack dealt " + damage + " damage to " + monster.getName() + " !" + RESET);
+            System.out.println(YELLOW + "A half hearted attack dealt " + damage + " damage to " + monster.getName() + " !" + RESET);
 
             currentFight.setMonsterHealthLost(damage);
             currentFight.setDamageDealt(damage);
-            saveFightHistory(currentFight, hero.getHeroID(), monster);
         } else {
             System.out.println("Error : fight instance is null!");
         }
@@ -180,37 +181,37 @@ public class LevelsMenu implements IColors {
         int damage = monster.getDamage();
         monster.attack();
         hero.takeDamage(damage);
-        System.out.println(YELLOW + "The " + monster.getName() + " dealt " + damage + " damage to your lethargic bottom" + RESET);
+        System.out.println( YELLOW + "The " + monster.getName() + " dealt " + damage + " damage to your lethargic bottom" + RESET);
     }
 
 
     private void displayMonsterInfo(AMonster monster) {
-        System.out.println(CYAN + "Monster info: " + RESET);
-        System.out.println(monster.getStatus());
+        System.out.println(BLUE + "Monster info: \n" + monster.getStatus() + RESET);
     }
 
     public void displayCombatStatus(AMonster monster) {
-        System.out.println(RED + "Player info: \n" + hero.getStatus() + RESET);
+        System.out.println(BLUE + "Player info: \n" + hero.getStatus() + RESET);
         System.out.println(BLUE + "Monster info: \n" + monster.getStatus() + RESET);
     }
 
     private void getMonsterLore(AMonster monster) {
-        System.out.println(RED + "Spectacular lore coming up: \n" + monster.getLore() + RESET);
+        System.out.println(BLUE + "Spectacular lore coming up: \n" + monster.getLore() + RESET);
     }
 
     private void displayCombatResult(AMonster monster) {
         if (hero.isAlive()) {
-            System.out.println(CYAN + "Wow, you didn't die. " + monster.getName() + " did though, lmao." + RESET);
+            System.out.println( GREEN + "Wow, you didn't die. " + monster.getName() + " did though, lmao." + RESET);
             hero.loot(monster.getExperience(), monster.getGold());
             System.out.println(YELLOW + "You now have: " + hero.getGold() + " gold, as well as: " + hero.getExperience() + " experience!" + RESET);
         } else {
-            System.out.println(GREEN + "You were defeated, how embarrassing, you could try again from the start, but it's okay to admit defeat." + RESET);
+            System.out.println(RED + "You were defeated, how embarrassing, you could try again from the start, but it's okay to admit defeat." + RESET);
+            currentFight.setWinner("Monster");
             exit(0);
         }
     }
 
     public void showAfterFightMenu(AMonster monster) throws SQLException {
-        System.out.println(RED + "Welcome to the awesome after fight menu, it looks cool but it's the same as the other ones basically." + RESET);
+        System.out.println(GREEN +"Welcome to the awesome after fight menu, it looks cool but it's the same as the other ones basically." + RESET);
         System.out.println(GREEN + "1. - Attack next monster\n 2. - Go to the shop\n 3. - Quit out." + RESET);
 
         int choice = Input.getIntInput("");
@@ -227,13 +228,13 @@ public class LevelsMenu implements IColors {
             }
 
             case 3 -> {
-                System.out.println(BLUE + "Wouldn't expect you to comeback, but if you're thinking about it, don't. This is not something that gets better the second time you try it." + RESET);
-                System.out.println("But if you do, your hero is saved.");
+                System.out.println(RED + "Wouldn't expect you to comeback, but if you're thinking about it, don't. This is not something that gets better the second time you try it." + RESET);
+                System.out.println(RED + "But if you do, your hero is saved." + RESET);
                 savePlayer();
                 game.exitGame(hero);
             }
             default -> {
-                System.out.println(GREEN + "Hey! Sausage fingers - pay attention and try again." + RESET);
+                System.out.println(RED + "Hey! Sausage fingers - pay attention and try again." + RESET);
                 showAfterFightMenu(monster);
             }
         }
@@ -253,7 +254,6 @@ public class LevelsMenu implements IColors {
     public void savePlayer() {
         this.db.openConnection();
         heroDao.saveHeroToDatabase(this.hero, this.db);
-        System.out.println("Game saved!");
     }
 
     public void loadPlayer() {
@@ -262,14 +262,14 @@ public class LevelsMenu implements IColors {
 
             List<Hero> heroList = heroDao.showHeroes();
             if (heroList.isEmpty()) {
-                System.out.println("No saved players were found.");
+                System.out.println( RED + "No saved players were found." + RESET);
             } else {
-                System.out.println("List of saved players: ");
+                System.out.println(GREEN +"List of saved players: " + RESET);
                 for (Hero savedHero : heroList) {
-                    System.out.println("Hero id: " + savedHero.getHeroID() + " Hero: " + savedHero.getName() + " Level: " + savedHero.getLevel());
+                    System.out.println(GREEN + "Hero id: " + savedHero.getHeroID() + " Hero: " + savedHero.getName() + " Level: " + savedHero.getLevel() + RESET);
                 }
 
-                System.out.println("Enter ID of the player you want to load: ");
+                System.out.println(GREEN + "Enter ID of the player you want to load: " + RESET);
                 long input = Input.inputInt();
 
                 hero = findHeroInList(input, heroList);
@@ -281,14 +281,14 @@ public class LevelsMenu implements IColors {
                     if (hero.getHealth() <= 0) {
                         hero.setHealth(1);
                     }
-                    System.out.println("Hero loaded: " + hero.getName() +
+                    System.out.println(GREEN +"Hero loaded: " + hero.getName() +
                             " Level: " + hero.getLevel() +
-                            " Health: " + hero.getHealth());
+                            " Health: " + hero.getHealth() + RESET);
 
                     startCombat();
 
                 } else {
-                    System.out.println("Invalid ID, please try again.");
+                    System.out.println(RED + "Invalid ID, please try again." + RESET);
                     loadPlayer();
                 }
             }

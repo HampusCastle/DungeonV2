@@ -12,12 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FightDao {
-    private static final String INSERT_FIGHT_SQL = "INSERT INTO Fight (timestamp, heroID, heroName, heroInitialHealth, heroHealthLost, monsterID, monsterType, monsterInitialHealth, monsterHealthLost, winner) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_COMBATLOG_SQL = "INSERT INTO Combatlog (timestamp, heroID, heroName, heroInitialHealth, heroHealthLost, monsterID, monsterType, monsterInitialHealth, monsterHealthLost, battleWinner) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     public boolean saveFightToDatabase(Fight fight, Hero hero, AMonster monster, DatabaseConnector tempDB) {
 
         try (Connection db = tempDB.getConnection();
-             PreparedStatement statement = db.prepareStatement(INSERT_FIGHT_SQL, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement statement = db.prepareStatement(INSERT_COMBATLOG_SQL, Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setTimestamp(1, new java.sql.Timestamp(fight.getTimestamp().getTime()));
             statement.setLong(2, fight.getHeroID());
@@ -50,5 +50,7 @@ public class FightDao {
             throw new RuntimeException(e);
 
         }
+
     }
+
 }

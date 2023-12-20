@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.hampusborg.demo.interfaces.IColors.GREEN;
+import static com.hampusborg.demo.interfaces.IColors.RESET;
+
 public class Hero extends ACharacter {
     Random r = new Random();
     private int strength;
@@ -173,6 +176,10 @@ public class Hero extends ACharacter {
         return false;
     }
 
+    public boolean hasWeapon (Weapon weapon) {
+        return weapons.contains(weapon);
+    }
+
 
     public int getDamage(boolean isRegularAttack) {
         return calculateDamage(isRegularAttack);
@@ -181,10 +188,8 @@ public class Hero extends ACharacter {
     private int calculateDamage(boolean isRegularAttack) {
         int tempDamage = damage + (strength * 2 / 4 + 1);
         if (isCriticalHit(isRegularAttack)) {
-            System.out.println("Cracking hit son! Critical strike dealt: " + tempDamage * 2);
             return tempDamage * 2;
         }
-        System.out.println("Week hit, only: " + tempDamage);
 
         return tempDamage;
     }
@@ -226,16 +231,6 @@ public class Hero extends ACharacter {
             this.weapons.add(selectedWeapon);
     }
 
-    public String toSaveFileString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Hero:").append(name).append(" level ").append(level).append("\nWeapons:");
-        for (Weapon weapon : weapons
-        ) {
-            sb.append(weapon.getName()).append("\n");
-        }
-        sb.append("Monsters killed: ").append(monstersKilled);
-        return sb.toString();
-    }
 
     @Override
     public String attack() {

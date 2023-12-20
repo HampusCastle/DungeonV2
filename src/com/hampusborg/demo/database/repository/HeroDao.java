@@ -12,6 +12,7 @@ public class HeroDao {
     private static final String INSERT_HERO_SQL = "INSERT INTO Hero (name, heroClass, damage, strength, intelligence, agility, health, experience, gold, heroLevel, monstersKilled, CreationTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_HERO_SQL = "UPDATE Hero SET name = ?, heroClass = ?, damage = ?, strength = ?, intelligence = ?, agility = ?, health = ?, experience = ?, gold = ?, heroLevel = ?, monstersKilled = ? WHERE heroID = ?";
 
+
     public boolean saveHeroToDatabase(Hero hero, DatabaseConnector tempDB) {
 
         try (Connection db = tempDB.getConnection()) {

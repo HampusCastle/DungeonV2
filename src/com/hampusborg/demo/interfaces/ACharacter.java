@@ -32,9 +32,8 @@ public abstract class ACharacter implements ICombat {
     }
 
     public void takeDamage(int damage) {
-        System.out.println("Before character damage: " + health);
         health -= damage;
-        System.out.println("after character damage: " + health);
+
 
     }
 

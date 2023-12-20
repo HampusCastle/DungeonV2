@@ -22,6 +22,9 @@ public class Shop implements IColors {
 
     public Shop () {
          this.weapons = WeaponFactory.generateWeapons();
+        if (this.weapons == null) {
+            this.weapons = new ArrayList<>();
+        }
     }
 
     public void buyItems(Hero hero, AMonster monster) throws SQLException {
@@ -33,7 +36,7 @@ public class Shop implements IColors {
 
         do {
             displayShopOptions();
-            int choice = Input.getIntInput("Enter what you want to buy: ");
+            int choice = Input.getIntInput( GREEN + "Enter what you want to buy: " + RESET);
             switch (choice) {
                 case 1 -> statsUpgrade(hero, "Health", 10, 120);
                 case 2 -> statsUpgrade(hero, "Damage", 10, 150);
@@ -64,7 +67,7 @@ public class Shop implements IColors {
         }
         System.out.println("0 -> go back");
 
-        int choice = Input.getIntInput("Enter what you want to buy: ");
+        int choice = Input.getIntInput(GREEN + "Enter what you want to buy: " + RESET);
 
         if (choice == 0) {
             buyItems(hero, monster);
@@ -73,18 +76,20 @@ public class Shop implements IColors {
         Weapon selectedWeapon = findWeaponById(choice);
 
         if (selectedWeapon != null && hero.getGold() >= selectedWeapon.getCost()) {
-            hero.setGold(hero.getGold() - selectedWeapon.getCost());
-            hero.addToInventory(selectedWeapon);
-            weaponDao.saveHeroWeapon(hero.getHeroID(), selectedWeapon.getWeaponId(), 1);
-            hero.setDamage(hero.getDamage() + selectedWeapon.getDamage());
-            System.out.println("You bought: " + selectedWeapon.getName());
-            levelsmenu.savePlayer();
-
-
+            if (hero.hasWeapon(selectedWeapon)) {
+                System.out.println(RED + "You already own that weapon!" + RESET);
+            } else {
+                hero.setGold(hero.getGold() - selectedWeapon.getCost());
+                hero.addToInventory(selectedWeapon);
+                weaponDao.saveHeroWeapon(hero.getHeroID(), selectedWeapon.getWeaponId(), 1);
+                hero.setDamage(hero.getDamage() + selectedWeapon.getDamage());
+                System.out.println("You bought: " + selectedWeapon.getName());
+                levelsmenu.savePlayer();
+            }
         } else if (selectedWeapon == null) {
-            System.out.println("Invalid weapon ID. Nothing was bought, obviously??");
+            System.out.println(RED + "Invalid weapon ID. Nothing was bought, obviously??" + RESET);
         } else {
-            System.out.println("Insufficient funds, donut!");
+            System.out.println(RED + "Insufficient funds, donut!" + RESET);
         }
     }
 
@@ -98,13 +103,13 @@ public class Shop implements IColors {
     }
 
     private void displayShopOptions() {
-        System.out.println(BLUE + "1. - Health pot: 120g || Gives Health +10 " + RESET);
-        System.out.println(RED + "2. - Extra spikes for a club : 150g || Gives: Damage +10" + RESET);
-        System.out.println(GREEN + "3. - Judo lesson: 130g || Gives: Agility +10 " + RESET);
-        System.out.println(YELLOW + "4. - A day with a personal trainer: 200g || Gives: Strength +10" + RESET);
-        System.out.println(BLUE + "5. - A book: 200g || Gives: Intelligence +10" + RESET);
-        System.out.println(GREEN + "6. - A solid choice of weapons" + RESET);
-        System.out.println(RED + "0. - Exit" + RESET);
+        System.out.println("1. - Health pot: 120g || Gives Health +10 ");
+        System.out.println("2. - Extra spikes for a club : 150g || Gives: Damage +10");
+        System.out.println("3. - Judo lesson: 130g || Gives: Agility +10 ");
+        System.out.println("4. - A day with a personal trainer: 200g || Gives: Strength +10");
+        System.out.println("5. - A book: 200g || Gives: Intelligence +10");
+        System.out.println("6. - A solid choice of weapons");
+        System.out.println("0. - Exit");
     }
 
     private void statsUpgrade(Hero hero, String statName, int statIncrease, int cost) {
@@ -113,7 +118,7 @@ public class Shop implements IColors {
             hero.setGold(hero.getGold() - cost);
             System.out.println(GREEN + "New stats: " + hero.getStatus() + RESET);
         } else {
-            System.out.println(YELLOW + "Insufficient funds. Get Lost!" + RESET);
+            System.out.println(RED + "Insufficient funds. Get Lost!" + RESET);
         }
     }
 

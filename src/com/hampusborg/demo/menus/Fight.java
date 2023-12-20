@@ -105,7 +105,6 @@ public class Fight {
     }
 
     public int getMonsterHealthLost() {
-        System.out.println("Monster Health Lost (getMonsterHealthLost): " + monsterHealthLost);
         return monsterHealthLost;
     }
 

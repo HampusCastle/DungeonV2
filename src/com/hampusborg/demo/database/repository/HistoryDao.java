@@ -19,10 +19,10 @@ public class HistoryDao {
     public void fightHistory(Hero hero) throws SQLException {
         try (Connection connection = db.getConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "SELECT f.*, m.name AS monsterName, h.name AS heroName " +
-                                "FROM Fight f " +
-                                "JOIN Hero h ON f.heroID = h.heroID " +
-                                "JOIN Monster m ON f.monsterID = m.monsterID " +
+                        "SELECT cl.*, m.name AS monsterName, h.name AS heroName " +
+                                "FROM CombatLog cl " +
+                                "JOIN Hero h ON cl.heroID = h.heroID " +
+                                "JOIN Monster m ON cl.monsterID = m.monsterID " +
                                 "WHERE h.heroID = ?")) {
 
             statement.setLong(1, hero.getHeroID());
@@ -32,16 +32,16 @@ public class HistoryDao {
                 long fightID = resultSet.getLong("fightID");
                 String monsterName = resultSet.getString("monsterName");
                 String heroName = resultSet.getString("heroName");
-                String winner = resultSet.getString("winner");
+                String winner = resultSet.getString("battleWinner");
 
-                System.out.println("Fight ID: " + fightID);
-                System.out.println("Timestamp: " + resultSet.getTimestamp("timestamp"));
-                System.out.println("Hero ID: " + resultSet.getLong("heroID"));
-                System.out.println("Hero Name: " + heroName);
+                System.out.println("Fight ID: " + fightID +
+                        "\n ___________" + "Timestamp: " + resultSet.getTimestamp("timestamp") +
+                        "\n ___________" + "Hero ID: " + resultSet.getLong("heroID") +
+                                "\n ___________" + "Hero Name: " + heroName +
+                                "\n ___________" + "Monster ID: " + resultSet.getLong("monsterID") +
+                                "\n ___________" + "Monster Type: " + resultSet.getString("monsterType") +
+                                "\n ___________" + "Winner: " + winner);
 
-                System.out.println("Monster ID: " + resultSet.getLong("monsterID"));
-                System.out.println("Monster Type: " + resultSet.getString("monsterType"));
-                System.out.println("Winner: " + winner);
             }
         }
     }

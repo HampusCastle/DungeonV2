@@ -14,20 +14,20 @@ public class DatabaseConnector {
 
     private static Connection connection;
     public DatabaseConnector() {
-        openConnection();
     }
 
 
-    public static void openConnection() {
+    public static Connection openConnection() {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Connected to the database");
+            return connection;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to connect to the database");
         }
     }
+
 
     public static Connection getConnection() {
         try {
