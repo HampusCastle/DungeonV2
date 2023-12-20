@@ -1,5 +1,3 @@
-https://github.com/HampusCastle/DungeonV2
-
 DROP DATABASE IF EXISTS Dungeon_Run;
 
 CREATE DATABASE IF NOT EXISTS Dungeon_Run;
@@ -65,3 +63,18 @@ CREATE TABLE CombatLog (
 INSERT INTO Weapon (weaponID, name, damage, cost) VALUES (1, 'Cool bow', 4, 100);
 INSERT INTO Weapon (weaponID, name, damage, cost) VALUES (2, 'Butter knife', 1, 50);
 INSERT INTO Weapon (weaponID, name, damage, cost) VALUES (3, 'Sugar cane', 100, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
